@@ -101,6 +101,7 @@ namespace Starward.Services
             if (hThread == 0)
             {
                 _logger.LogError($"Failed to spawn thread ({Marshal.GetLastWin32Error()}: {Marshal.GetLastPInvokeErrorMessage()})");
+                throw new Exception("Failed to spawn thread");
             }
             else
             {
@@ -184,12 +185,11 @@ namespace Starward.Services
             var pGetLastError = Kernel32.GetProcAddress(kernel32, "GetLastError");
             var pSetEnvironmentVariableW = Kernel32.GetProcAddress(kernel32, "SetEnvironmentVariableW");
 
-            
-            var loaderPath = Path.Combine(_currentPath, "ReShade64.dll");
+            var loadPath = Path.Combine(_currentPath, "ReShade", "ReShade64.dll");
 
             return new LoadingData
             {
-                LoadPath = loaderPath,
+                LoadPath = loadPath,
                 GetLastError = pGetLastError,
                 LoadLibraryW = pLoadLibraryW,
                 EnvVarName = "RESHADE_DISABLE_LOADING_CHECK",
@@ -220,7 +220,7 @@ namespace Starward.Services
 
         private void TryUpdateIni(GameBiz gameBiz)
         {
-            Directory.CreateDirectory("ScreenShot");
+            Directory.CreateDirectory(@"ReShade\ScreenShot");
             var gamePath = _gameService.GetGameInstallPath(gameBiz);
             var iniPath = Path.Combine(gamePath, "ReShade.ini");
 
@@ -230,6 +230,47 @@ namespace Starward.Services
                 return;
             }
 
+            UpdateIni(iniPath);
+        }
+
+        private void UpdateIni(string iniPath)
+        {
+            var reshadePath = Path.Combine(_currentPath, "ReShade");
+
+            var lines = File.ReadAllLines(iniPath);
+            var newLines = new List<string>();
+
+            foreach (var line in lines)
+            {
+                var split = line.Split('=');
+                if (split.Length < 2)
+                {
+                    newLines.Add(line);
+                    continue;
+                }
+
+                var key = split[0];
+
+                switch (key)
+                {
+                    case "AddonPath":
+                        newLines.Add($"{key}={Path.Combine(reshadePath, "reshade-shaders", "Addons")}");
+                        break;
+                    case "EffectSearchPaths":
+                        newLines.Add($"{key}={Path.Combine(reshadePath, "reshade-shaders", "Shaders")}");
+                        break;
+                    case "TextureSearchPaths":
+                        newLines.Add($"{key}={Path.Combine(reshadePath, "reshade-shaders", "Textures")}");
+                        break;
+                    default:
+                        newLines.Add(line);
+                        break;
+                }
+
+
+            }
+
+            File.WriteAllLines(iniPath, newLines);
         }
 
         private void CreateIni(string gamePath)
@@ -250,7 +291,7 @@ namespace Starward.Services
             sb.AppendLine();
 
             sb.AppendLine("[GENERAL]");
-            sb.AppendLine($"EffectSearchPaths={Path.Combine(reshadePath, "reshade-shaders", "Addons")}");
+            sb.AppendLine($"EffectSearchPaths={Path.Combine(reshadePath, "reshade-shaders", "Shaders")}");
             sb.AppendLine("PerformanceMode=0");
             sb.AppendLine("PreprocessorDefinitions=RESHADE_DEPTH_LINEARIZATION_FAR_PLANE=1000.0,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=1,RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0\r\n");
             sb.AppendLine($"PresetPath={Path.Combine(reshadePath, "Presets", "Mod OFF.ini")}");
