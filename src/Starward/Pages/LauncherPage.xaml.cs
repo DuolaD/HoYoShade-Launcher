@@ -56,6 +56,8 @@ public sealed partial class LauncherPage : Page
 
     private readonly SystemTrayService _systemTrayService = AppConfig.GetService<SystemTrayService>();
 
+    private readonly ReShadeService _reshadeService = AppConfig.GetService<ReShadeService>();
+
     private readonly Microsoft.UI.Dispatching.DispatcherQueueTimer _timer;
 
     private GameBiz gameBiz;
@@ -610,6 +612,7 @@ public sealed partial class LauncherPage : Page
             var process1 = _gameService.StartGame(gameBiz, IgnoreRunningGame);
             if (process1 != null)
             {
+                _reshadeService.OnGameStart(process1, gameBiz);
                 MainPage.Current.PauseVideo();
                 if (AppConfig.EnableSystemTrayIcon && _systemTrayService.IsCreated)
                 {

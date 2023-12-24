@@ -243,14 +243,17 @@ public sealed partial class MainPage : Page
         isSelectBH3 = false;
         isSelectYS = false;
         isSelectSR = false;
+        isSelectZZZ = false;
         Border_Mask_BH3.Opacity = OPACITY;
         Border_Mask_YS.Opacity = OPACITY;
         Border_Mask_SR.Opacity = OPACITY;
+        Border_Mask_ZZZ.Opacity = OPACITY;
         if (CurrentGameBiz.ToGame() is GameBiz.Honkai3rd)
         {
             UpdateButtonCornerRadius(Button_BH3, true);
             UpdateButtonCornerRadius(Button_YS, false);
             UpdateButtonCornerRadius(Button_SR, false);
+            UpdateButtonCornerRadius(Button_ZZZ, false);
             Border_Mask_BH3.Opacity = 0;
             isSelectBH3 = true;
             return;
@@ -260,6 +263,7 @@ public sealed partial class MainPage : Page
             UpdateButtonCornerRadius(Button_BH3, false);
             UpdateButtonCornerRadius(Button_YS, true);
             UpdateButtonCornerRadius(Button_SR, false);
+            UpdateButtonCornerRadius(Button_ZZZ, false);
             Border_Mask_YS.Opacity = 0;
             isSelectYS = true;
             return;
@@ -269,14 +273,25 @@ public sealed partial class MainPage : Page
             UpdateButtonCornerRadius(Button_BH3, false);
             UpdateButtonCornerRadius(Button_YS, false);
             UpdateButtonCornerRadius(Button_SR, true);
+            UpdateButtonCornerRadius(Button_ZZZ, false);
             Border_Mask_SR.Opacity = 0;
             isSelectSR = true;
+            return;
+        }
+        if (CurrentGameBiz.ToGame() is GameBiz.ZZZ)
+        {
+            UpdateButtonCornerRadius(Button_BH3, false);
+            UpdateButtonCornerRadius(Button_YS, false);
+            UpdateButtonCornerRadius(Button_SR, false);
+            UpdateButtonCornerRadius(Button_ZZZ, true);
+            Border_Mask_ZZZ.Opacity = 0;
+            isSelectZZZ = true;
             return;
         }
         UpdateButtonCornerRadius(Button_BH3, false);
         UpdateButtonCornerRadius(Button_YS, false);
         UpdateButtonCornerRadius(Button_SR, false);
-
+        UpdateButtonCornerRadius(Button_ZZZ, false);
     }
 
 
@@ -300,6 +315,7 @@ public sealed partial class MainPage : Page
     private bool isSelectBH3;
     private bool isSelectYS;
     private bool isSelectSR;
+    private bool isSelectZZZ;
 
     private async void Button_BH3_Click(object sender, RoutedEventArgs e)
     {
@@ -363,11 +379,31 @@ public sealed partial class MainPage : Page
         isSelectSR = true;
     }
 
+    private async void Button_ZZZ_Click(object sender, RoutedEventArgs e)
+    {
+        var biz = AppConfig.GetLastRegionOfGame(GameBiz.ZZZ) switch
+        {
+            GameBiz.nap_cn => GameBiz.nap_cn,
+            GameBiz.nap_global => GameBiz.nap_global,
+            _ => GameBiz.nap_cn,
+        };
+        if (biz != CurrentGameBiz)
+        {
+            await ChangeGameBizAsync(biz.ToString());
+        }
+    }
+
+    private void Button_ZZZ_RightTapped(object sender, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+    {
+        isSelectZZZ = true;
+    }
+
     private void MenuFlyout_Game_Closed(object sender, object e)
     {
         isSelectBH3 = false;
         isSelectYS = false;
         isSelectSR = false;
+        isSelectZZZ = false;
         UpdateButtonEffect();
     }
 
@@ -397,6 +433,10 @@ public sealed partial class MainPage : Page
             return;
         }
         if (button.Tag is "sr" && isSelectSR)
+        {
+            return;
+        }
+        if (button.Tag is "zzz" && isSelectZZZ)
         {
             return;
         }
@@ -1050,8 +1090,8 @@ public sealed partial class MainPage : Page
 
 
 
+
+
     #endregion
-
-
 
 }

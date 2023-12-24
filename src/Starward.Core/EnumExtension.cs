@@ -32,6 +32,7 @@ public static class EnumExtension
             11 or 12 or 13 => GameBiz.GenshinImpact,
             21 or 22 => GameBiz.StarRail,
             >= 31 and <= 36 => GameBiz.Honkai3rd,
+            41 or 42 => GameBiz.ZZZ,
             _ => GameBiz.None,
         };
     }
@@ -44,6 +45,7 @@ public static class EnumExtension
             GameBiz.GenshinImpact => CoreLang.Game_GenshinImpact,
             GameBiz.StarRail => CoreLang.Game_HonkaiStarRail,
             GameBiz.Honkai3rd => CoreLang.Game_HonkaiImpact3rd,
+            GameBiz.ZZZ => CoreLang.Game_ZZZ,
             _ => "",
         };
     }
@@ -64,6 +66,8 @@ public static class EnumExtension
             GameBiz.bh3_kr => CoreLang.GameServer_KoreaServer,
             GameBiz.bh3_overseas => CoreLang.GameServer_SEAServer,
             GameBiz.bh3_tw => CoreLang.GameServer_TraditionalChineseServer,
+            GameBiz.nap_cn => CoreLang.GameServer_ChinaServer,
+            GameBiz.nap_global => CoreLang.GameServer_GlobalServer,
             _ => "",
         };
     }
@@ -73,7 +77,7 @@ public static class EnumExtension
     {
         return (int)biz switch
         {
-            11 or 13 or 21 or 31 => true,
+            11 or 13 or 21 or 31 or 41 => true,
             _ => false,
         };
     }
@@ -83,7 +87,7 @@ public static class EnumExtension
     {
         return (int)biz switch
         {
-            12 or 22 or (>= 32 and <= 36) => true,
+            12 or 22 or (>= 32 and <= 36) or 42 => true,
             _ => false,
         };
     }
@@ -104,6 +108,8 @@ public static class EnumExtension
             GameBiz.bh3_kr => GameRegistry.LauncherPath_bh3_kr,
             GameBiz.bh3_overseas => GameRegistry.LauncherPath_bh3_overseas,
             GameBiz.bh3_tw => GameRegistry.LauncherPath_bh3_tw,
+            GameBiz.nap_cn => GameRegistry.LauncherPath_nap_cn,
+            GameBiz.nap_global => GameRegistry.LauncherPath_nap_global,
             _ => "HKEY_LOCAL_MACHINE",
         };
     }
@@ -125,6 +131,8 @@ public static class EnumExtension
             GameBiz.bh3_kr => GameRegistry.GamePath_bh3_kr,
             GameBiz.bh3_overseas => GameRegistry.GamePath_bh3_overseas,
             GameBiz.bh3_tw => GameRegistry.GamePath_bh3_tw,
+            GameBiz.nap_cn => GameRegistry.GamePath_nap_cn,
+            GameBiz.nap_global => GameRegistry.GamePath_nap_global,
             _ => "HKEY_CURRENT_USER",
         };
     }

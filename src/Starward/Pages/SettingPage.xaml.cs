@@ -676,6 +676,15 @@ public sealed partial class SettingPage : Page
 
     #endregion
 
+    #region ReShade
+    [ObservableProperty]
+    bool enableReshade;
 
+    [RelayCommand]
+    private async Task ReShadeUpdateResourceAsync()
+    { 
+        
+    }
+    #endregion
 
 }

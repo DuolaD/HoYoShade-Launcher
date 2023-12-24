@@ -159,7 +159,7 @@
                 <TextBlock Margin="8,0,0,0"
                            VerticalAlignment="Center"
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                           Text="Starward" />
+                           Text="Starward - HoYoShade" />
                 <TextBlock VerticalAlignment="Center"
                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                            Text="{x:Bind s:AppConfig.AppVersion}" />
@@ -286,6 +286,39 @@
                                             Text="China" />
                             <MenuFlyoutItem Command="{x:Bind ChangeGameBizCommand}"
                                             CommandParameter="hkrpg_global"
+                                            Text="Global" />
+                        </MenuFlyout>
+                    </Button.ContextFlyout>
+                </Button>
+
+                <Button Name="Button_ZZZ"
+                        Width="36"
+                        Height="36"
+                        Padding="0"
+                        BorderThickness="0"
+                        Click="Button_ZZZ_Click"
+                        CornerRadius="8"
+                        DoubleTapped="Button_SelectGame_DoubleTapped"
+                        PointerEntered="Button_Game_PointerEntered"
+                        PointerExited="Button_Game_PointerExited"
+                        RightTapped="Button_ZZZ_RightTapped"
+                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                        Tag="zzz">
+                    <Grid>
+                        <Image Source="ms-appx:///Assets/Image/icon_sr.jpg" />
+                        <Border Name="Border_Mask_ZZZ" Background="#60000000">
+                            <Border.OpacityTransition>
+                                <ScalarTransition />
+                            </Border.OpacityTransition>
+                        </Border>
+                    </Grid>
+                    <Button.ContextFlyout>
+                        <MenuFlyout Closed="MenuFlyout_Game_Closed">
+                            <MenuFlyoutItem Command="{x:Bind ChangeGameBizCommand}"
+                                            CommandParameter="nap_cn"
+                                            Text="China" />
+                            <MenuFlyoutItem Command="{x:Bind ChangeGameBizCommand}"
+                                            CommandParameter="nap_global"
                                             Text="Global" />
                         </MenuFlyout>
                     </Button.ContextFlyout>

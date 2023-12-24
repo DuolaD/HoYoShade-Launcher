@@ -20,6 +20,8 @@ public class GameRegistry
     public const string LauncherPath_bh3_kr = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\붕괴3rd";
     public const string LauncherPath_bh3_jp = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\崩壊3rd";
 
+    public const string LauncherPath_nap_cn = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\绝区零";
+    public const string LauncherPath_nap_global = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zenless Zone Zero";
 
 
     public const string GamePath_hk4e_cn = @"HKEY_CURRENT_USER\Software\miHoYo\原神";
@@ -36,6 +38,9 @@ public class GameRegistry
     public const string GamePath_bh3_kr = @"HKEY_CURRENT_USER\Software\miHoYo\붕괴3rd";
     public const string GamePath_bh3_jp = @"HKEY_CURRENT_USER\Software\miHoYo\崩壊3rd";
 
+
+    public const string GamePath_nap_cn = @"HKEY_CURRENT_USER\Software\miHoYo\绝区零";
+    public const string GamePath_nap_global = @"HKEY_CURRENT_USER\Software\miHoYo\Zenless Zone Zero";
 
 
     public const string GENERAL_DATA_h2389025596 = "GENERAL_DATA_h2389025596";

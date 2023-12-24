@@ -168,6 +168,9 @@
   <data name="Game_HonkaiImpact3rd" xml:space="preserve">
     <value>Honkai Impact 3rd</value>
   </data>
+  <data name="Game_ZZZ" xml:space="preserve">
+    <value>Zenless Zone Zero</value>
+  </data>
   <data name="GameServer_ChinaServer" xml:space="preserve">
     <value>China Server</value>
   </data>

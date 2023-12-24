@@ -1177,4 +1177,7 @@ Do you accept the risk and continue to use it?</value>
   <data name="LauncherPage_StartupCount" xml:space="preserve">
     <value>Startup Count</value>
   </data>
+  <data name="SettingPage_ReshadeUpdateResource" xml:space="preserve">
+    <value>Update Resource</value>
+  </data>
 </root>

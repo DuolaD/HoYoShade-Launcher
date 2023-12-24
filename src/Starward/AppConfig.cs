@@ -274,6 +274,7 @@ internal static class AppConfig
             sc.AddSingleton<WelcomeService>();
             sc.AddSingleton<SystemTrayService>();
             sc.AddSingleton<SelfQueryService>();
+            sc.AddSingleton<ReShadeService>();
 
             _serviceProvider = sc.BuildServiceProvider();
             if (!string.IsNullOrWhiteSpace(UserDataFolder))
