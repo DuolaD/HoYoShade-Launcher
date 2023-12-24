@@ -262,6 +262,10 @@ namespace Starward.Services
                     case "TextureSearchPaths":
                         newLines.Add($"{key}={Path.Combine(reshadePath, "reshade-shaders", "Textures")}");
                         break;
+                    case "EditorFont":
+                    case "Font":
+                        newLines.Add($"{key}={Path.Combine(reshadePath, "C:\\Windows\\Fonts\\segoeuib.ttf")}");
+                        break;
                     default:
                         newLines.Add(line);
                         break;
